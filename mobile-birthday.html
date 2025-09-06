@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>生日快乐歌</title>
+    <title>生日快乐</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     
@@ -639,7 +639,7 @@
                 <!-- 顶层蛋糕 - 小圆形 -->
                 <div class="absolute bottom-32 left-1/2 transform -translate-x-1/2 w-12 h-8 md:w-20 md:h-12 bg-gradient-to-b from-cyan-200 to-cyan-400 rounded-full shadow-xl"></div>
                 
-                <!-- 顶部装饰球 -->
+                <!--顶部装饰球 -->
                 <div class="absolute bottom-40 left-1/2 transform -translate-x-1/2 w-6 h-6 md:w-8 md:h-8 bg-gradient-to-b from-yellow-200 to-yellow-400 rounded-full shadow-lg"></div>
                 
                 <!-- 蜡烛 - 单根大蜡烛 -->
@@ -864,10 +864,8 @@
             
             // 自动切换祝福语
             setInterval(() => {
-                if (!isPlaying) {
                     switchBlessing();
-                }
-            }, 500);
+            }, 2000);
         }
         
         // 播放/暂停切换
@@ -911,7 +909,7 @@
             if (isPlaying) {
                 // 播放状态
                 tapIndicator.classList.add('hidden');
-                tapText.innerHTML = '🎉 祝生日快乐，天天开心！🎉';
+                tapText.innerHTML = blessings[currentBlessingIndex]; 
                 playingIndicator.classList.remove('hidden');
                 replayBtn.classList.remove('hidden');
                 
@@ -1101,6 +1099,7 @@
                 // 切换到下一个祝福语
                 currentBlessingIndex = (currentBlessingIndex + 1) % blessings.length;
                 blessingText.textContent = blessings[currentBlessingIndex];
+                tapText.innerHTML = blessings[currentBlessingIndex]; // 新增：同步更新tapText
                 
                 // 显示新祝福语
                 blessingText.classList.remove('hide');
@@ -1138,4 +1137,3 @@
     </script>
 </body>
 </html>
-    
