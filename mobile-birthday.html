@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>生日快乐歌</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B9D',
+                        secondary: '#FFE066',
+                        accent: '#4ECDC4',
+                        warm: '#FF8A80',
+                        gold: '#FFD700',
+                        pink: '#FFB3BA',
+                        purple: '#C7CEEA',
+                        mint: '#B3E5D1'
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'scale': 'scale 1.5s infinite alternate',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'twinkle': 'twinkle 2s ease-in-out infinite',
+                        'sparkle': 'sparkle 1.5s ease-in-out infinite',
+                        'heartbeat': 'heartbeat 1.5s ease-in-out infinite',
+                        'swing': 'swing 2s ease-in-out infinite',
+                        'spin-slow': 'spin 3s linear infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-20px) rotate(5deg)' }
+                        },
+                        scale: {
+                            '0%': { transform: 'scale(1)' },
+                            '100%': { transform: 'scale(1.15)' }
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' }
+                        },
+                        twinkle: {
+                            '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+                            '50%': { opacity: 0.5, transform: 'scale(1.2)' }
+                        },
+                        sparkle: {
+                            '0%': { transform: 'scale(0) rotate(0deg)', opacity: 1 },
+                            '50%': { transform: 'scale(1) rotate(180deg)', opacity: 0.8 },
+                            '100%': { transform: 'scale(0) rotate(360deg)', opacity: 0 }
+                        },
+                        heartbeat: {
+                            '0%': { transform: 'scale(1)' },
+                            '14%': { transform: 'scale(1.1)' },
+                            '28%': { transform: 'scale(1)' },
+                            '42%': { transform: 'scale(1.1)' },
+                            '70%': { transform: 'scale(1)' }
+                        },
+                        swing: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '25%': { transform: 'rotate(15deg)' },
+                            '75%': { transform: 'rotate(-15deg)' },
+                            '100%': { transform: 'rotate(0deg)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 4px 20px rgba(255, 107, 157, 0.3);
+            }
+            .text-glow {
+                text-shadow: 0 0 20px rgba(255, 107, 157, 0.6), 0 0 40px rgba(255, 107, 157, 0.4);
+            }
+            .full-screen {
+                min-height: 100vh;
+            }
+            .click-indicator {
+                animation: click-indicator 1.5s infinite;
+            }
+            @keyframes click-indicator {
+                0% {
+                    transform: scale(1);
+                    opacity: 0.8;
+                }
+                50% {
+                    transform: scale(1.2);
+                    opacity: 0.4;
+                }
+                100% {
+                    transform: scale(1.5);
+                    opacity: 0;
+                }
+            }
+            .confetti {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                opacity: 0;
+            }
+            .gradient-bg {
+                background: linear-gradient(135deg, #FF6B9D 0%, #FFE066 25%, #4ECDC4 50%, #C7CEEA 75%, #FFB3BA 100%);
+                background-size: 400% 400%;
+                animation: gradient-shift 8s ease infinite;
+            }
+            @keyframes gradient-shift {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            .glass-effect {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            .sparkle-effect {
+                position: relative;
+                overflow: hidden;
+            }
+            .sparkle-effect::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+                animation: sparkle-rotate 3s linear infinite;
+            }
+            @keyframes sparkle-rotate {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            .heart-beat {
+                animation: heartbeat 1.5s ease-in-out infinite;
+            }
+            .floating-hearts {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                opacity: 0;
+            }
+            .floating-hearts::before {
+                content: '💖';
+                font-size: 20px;
+                animation: float-up 4s ease-in-out infinite;
+            }
+            @keyframes float-up {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+            .playing-mode {
+                animation: party-mode 2s ease-in-out infinite;
+            }
+            @keyframes party-mode {
+                0%, 100% { filter: hue-rotate(0deg) brightness(1); }
+                25% { filter: hue-rotate(90deg) brightness(1.1); }
+                50% { filter: hue-rotate(180deg) brightness(1.2); }
+                75% { filter: hue-rotate(270deg) brightness(1.1); }
+            }
+            .gradient-border {
+                background: linear-gradient(45deg, #FF6B9D, #FFE066, #4ECDC4, #C7CEEA);
+                background-size: 400% 400%;
+                animation: gradient-shift 3s ease infinite;
+            }
+        }
+    </style>
+</head>
+<body class="gradient-bg overflow-hidden">
+    <!-- 动态背景装饰元素 -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <!-- 主要装饰球 -->
+        <div class="absolute top-10 left-5 w-20 h-28 bg-gradient-to-br from-primary/40 to-warm/30 rounded-full animate-float sparkle-effect" style="animation-delay: 0s;"></div>
+        <div class="absolute top-40 right-10 w-16 h-24 bg-gradient-to-br from-secondary/40 to-gold/30 rounded-full animate-float sparkle-effect" style="animation-delay: 0.5s;"></div>
+        <div class="absolute bottom-20 left-10 w-18 h-26 bg-gradient-to-br from-accent/40 to-mint/30 rounded-full animate-float sparkle-effect" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-40 right-5 w-14 h-20 bg-gradient-to-br from-pink/40 to-purple/30 rounded-full animate-float sparkle-effect" style="animation-delay: 1.5s;"></div>
+        
+        <!-- 小装饰元素 -->
+        <div class="absolute top-20 right-20 w-8 h-8 bg-gold/50 rounded-full animate-twinkle" style="animation-delay: 2s;"></div>
+        <div class="absolute top-60 left-20 w-6 h-6 bg-accent/60 rounded-full animate-twinkle" style="animation-delay: 2.5s;"></div>
+        <div class="absolute bottom-60 right-20 w-10 h-10 bg-primary/50 rounded-full animate-twinkle" style="animation-delay: 3s;"></div>
+        
+        <!-- 浮动爱心 -->
+        <div class="floating-hearts absolute top-1/4 left-1/4" style="animation-delay: 0s;"></div>
+        <div class="floating-hearts absolute top-1/3 right-1/4" style="animation-delay: 1s;"></div>
+        <div class="floating-hearts absolute bottom-1/3 left-1/3" style="animation-delay: 2s;"></div>
+        <div class="floating-hearts absolute bottom-1/4 right-1/3" style="animation-delay: 3s;"></div>
+    </div>
+
+    <!-- 主容器 - 整个屏幕可点击 -->
+    <div id="play-area" class="full-screen flex flex-col items-center justify-center relative z-10 p-6 cursor-pointer">
+        <!-- 点击提示 (播放前显示) -->
+        <div id="tap-indicator" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="w-24 h-24 rounded-full border-4 border-gradient-to-r from-primary/60 to-secondary/60 flex items-center justify-center glass-effect">
+                <div class="w-20 h-20 rounded-full border-4 border-gradient-to-r from-secondary/70 to-accent/70 flex items-center justify-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-primary/30 to-secondary/30 click-indicator flex items-center justify-center">
+                        <i class="fa-solid fa-play text-white text-xl animate-pulse"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 标题容器 -->
+        <div class="text-center mb-8 relative">
+            <!-- 装饰性星星 -->
+            <div class="absolute -top-4 -left-4 text-gold text-2xl animate-twinkle">✨</div>
+            <div class="absolute -top-2 -right-4 text-gold text-xl animate-twinkle" style="animation-delay: 0.5s;">⭐</div>
+            <div class="absolute -bottom-2 -left-2 text-gold text-lg animate-twinkle" style="animation-delay: 1s;">💫</div>
+            <div class="absolute -bottom-4 -right-2 text-gold text-xl animate-twinkle" style="animation-delay: 1.5s;">✨</div>
+            
+            <!-- 主标题 -->
+            <h1 class="text-[clamp(2.5rem,9vw,4rem)] font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-warm to-secondary text-center text-glow mb-2 animate-float">
+                宗慧强生日快乐！
+            </h1>
+            
+            <!-- 副标题 -->
+            <p class="text-[clamp(1rem,4vw,1.5rem)] font-semibold text-white/90 text-center animate-pulse-slow">
+                🎉 Happy Birthday! 🎉
+            </p>
+        </div>
+        
+        <!-- 蛋糕图标容器 -->
+        <div class="relative mb-8">
+            <!-- 装饰光环 -->
+            <div class="absolute inset-0 w-40 h-40 md:w-48 md:h-48 rounded-full border-4 border-gradient-to-r from-gold/30 to-primary/30 animate-pulse-slow"></div>
+            <div class="absolute inset-2 w-36 h-36 md:w-44 md:h-44 rounded-full border-2 border-gradient-to-r from-secondary/40 to-accent/40 animate-pulse-slow" style="animation-delay: 0.5s;"></div>
+            
+            <!-- 蛋糕主体 -->
+            <div class="w-32 h-32 md:w-40 md:h-40 relative animate-scale heart-beat">
+                <!-- 蛋糕底座 -->
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-28 h-20 md:w-36 md:h-24 bg-gradient-to-b from-secondary to-gold rounded-t-full shadow-lg"></div>
+                <!-- 蛋糕层 -->
+                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-16 md:w-32 md:h-20 bg-gradient-to-b from-pink to-primary rounded-t-full shadow-lg"></div>
+                <!-- 顶部装饰 -->
+                <div class="absolute bottom-16 left-1/2 transform -translate-x-1/2 w-20 h-12 md:w-28 md:h-16 bg-gradient-to-b from-warm to-accent rounded-t-full shadow-lg"></div>
+                
+                <!-- 蜡烛 -->
+                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-2 h-8 md:w-3 md:h-10 bg-gradient-to-b from-yellow-300 to-orange-400 rounded-full shadow-lg"></div>
+                <!-- 火焰 -->
+                <div class="absolute top-[-8px] left-1/2 transform -translate-x-1/2 w-4 h-4 md:w-5 md:h-5 bg-gradient-to-b from-yellow-200 to-orange-500 rounded-full shadow-lg shadow-orange-400/60 animate-wiggle"></div>
+                
+                <!-- 装饰星星 -->
+                <div class="absolute top-2 left-2 text-gold text-sm animate-twinkle">✨</div>
+                <div class="absolute top-4 right-2 text-gold text-xs animate-twinkle" style="animation-delay: 0.5s;">⭐</div>
+                <div class="absolute bottom-8 left-4 text-gold text-xs animate-twinkle" style="animation-delay: 1s;">💫</div>
+                <div class="absolute bottom-6 right-4 text-gold text-sm animate-twinkle" style="animation-delay: 1.5s;">✨</div>
+            </div>
+        </div>
+        
+        <!-- 提示文字容器 -->
+        <div class="text-center mb-6">
+            <div class="glass-effect rounded-2xl p-4 mb-4">
+                <p id="tap-text" class="text-white/90 text-center text-[clamp(1.1rem,4.5vw,1.4rem)] font-medium">
+                    点击屏幕播放生日快乐歌 🎵
+                </p>
+            </div>
+            
+            <!-- 装饰性音符 -->
+            <div class="flex justify-center space-x-4 text-2xl animate-bounce-slow">
+                <span class="animate-float" style="animation-delay: 0s;">🎵</span>
+                <span class="animate-float" style="animation-delay: 0.2s;">🎶</span>
+                <span class="animate-float" style="animation-delay: 0.4s;">🎵</span>
+                <span class="animate-float" style="animation-delay: 0.6s;">🎶</span>
+            </div>
+        </div>
+        
+        <!-- 播放状态指示 (播放时显示) -->
+        <div id="playing-indicator" class="hidden mt-8">
+            <!-- 音乐可视化 -->
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <div class="w-3 h-8 bg-gradient-to-t from-primary to-secondary rounded-full animate-pulse"></div>
+                <div class="w-3 h-12 bg-gradient-to-t from-secondary to-accent rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                <div class="w-3 h-6 bg-gradient-to-t from-accent to-warm rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                <div class="w-3 h-10 bg-gradient-to-t from-warm to-pink rounded-full animate-pulse" style="animation-delay: 0.6s"></div>
+                <div class="w-3 h-8 bg-gradient-to-t from-pink to-purple rounded-full animate-pulse" style="animation-delay: 0.8s"></div>
+                <div class="w-3 h-14 bg-gradient-to-t from-purple to-primary rounded-full animate-pulse" style="animation-delay: 1s"></div>
+                <div class="w-3 h-7 bg-gradient-to-t from-primary to-secondary rounded-full animate-pulse" style="animation-delay: 1.2s"></div>
+            </div>
+            
+            <!-- 播放状态文字 -->
+            <div class="glass-effect rounded-xl p-3">
+                <p class="text-white/90 text-center text-lg font-medium animate-pulse-slow">
+                    🎵 正在播放生日快乐歌... 🎵
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 重播按钮 (播放时显示) -->
+    <button id="replay-btn" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 glass-effect text-primary w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hidden z-20 hover:scale-110 transition-transform duration-300">
+        <i class="fa-solid fa-refresh text-xl animate-spin-slow"></i>
+    </button>
+    
+    <!-- 音频元素 -->
+    <audio id="birthday-audio" loop>
+    <source src="birthday.mp3" type="audio/mpeg"> <!-- 直接写文件名 -->
+</audio>
+    
+    <!-- 礼花容器 -->
+    <div id="confetti-container" class="fixed inset-0 pointer-events-none z-30"></div>
+
+    <script>
+        // DOM元素
+        const playArea = document.getElementById('play-area');
+        const tapIndicator = document.getElementById('tap-indicator');
+        const tapText = document.getElementById('tap-text');
+        const playingIndicator = document.getElementById('playing-indicator');
+        const replayBtn = document.getElementById('replay-btn');
+        const audio = document.getElementById('birthday-audio');
+        const confettiContainer = document.getElementById('confetti-container');
+        
+        // 状态变量
+        let isPlaying = false;
+        
+        // 初始化函数
+        function init() {
+            // 为整个播放区域添加点击事件
+            playArea.addEventListener('click', togglePlay);
+            
+            // 为重播按钮添加点击事件
+            replayBtn.addEventListener('click', () => {
+                audio.currentTime = 0;
+                if (!isPlaying) {
+                    playAudio();
+                }
+            });
+            
+            // 初始化爱心飘浮效果
+            createFloatingHearts();
+            
+            // 添加触摸反馈
+            playArea.addEventListener('touchstart', (e) => {
+                playArea.style.transform = 'scale(0.98)';
+            });
+            
+            playArea.addEventListener('touchend', (e) => {
+                playArea.style.transform = 'scale(1)';
+            });
+        }
+        
+        // 播放/暂停切换
+        function togglePlay() {
+            if (isPlaying) {
+                pauseAudio();
+            } else {
+                playAudio();
+            }
+        }
+        
+        // 播放音频
+        function playAudio() {
+            // 尝试播放音频
+            audio.play().then(() => {
+                isPlaying = true;
+                updateUI();
+                createConfetti(); // 播放时显示礼花效果
+            }).catch(error => {
+                console.error('播放失败:', error);
+                // 某些浏览器需要更明确的用户交互，再次尝试
+                setTimeout(() => {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        updateUI();
+                        createConfetti();
+                    });
+                }, 100);
+            });
+        }
+        
+        // 暂停音频
+        function pauseAudio() {
+            audio.pause();
+            isPlaying = false;
+            updateUI();
+        }
+        
+        // 更新UI显示
+        function updateUI() {
+            if (isPlaying) {
+                // 播放状态
+                tapIndicator.classList.add('hidden');
+                tapText.innerHTML = '🎉 祝生日快乐，天天开心！🎉';
+                playingIndicator.classList.remove('hidden');
+                replayBtn.classList.remove('hidden');
+                
+                // 添加播放时的特殊效果
+                document.body.classList.add('playing-mode');
+            } else {
+                // 暂停状态
+                tapIndicator.classList.remove('hidden');
+                tapText.innerHTML = '点击屏幕继续播放 🎵';
+                playingIndicator.classList.add('hidden');
+                replayBtn.classList.add('hidden');
+                
+                // 移除播放时的特殊效果
+                document.body.classList.remove('playing-mode');
+            }
+        }
+        
+        // 创建礼花效果
+        function createConfetti() {
+            // 清除现有礼花
+            confettiContainer.innerHTML = '';
+            
+            const colors = ['#FF6B9D', '#FFE066', '#4ECDC4', '#C7CEEA', '#FFB3BA', '#FFD700', '#FF8A80', '#B3E5D1'];
+            const shapes = ['💖', '✨', '⭐', '💫', '🎉', '🎊', '🌟', '💝'];
+            const count = 150;
+            
+            for (let i = 0; i < count; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // 随机属性
+                const size = Math.random() * 12 + 6;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                const left = Math.random() * 100;
+                const delay = Math.random() * 4;
+                const duration = Math.random() * 4 + 3;
+                const rotation = Math.random() * 720;
+                const isEmoji = Math.random() > 0.6;
+                
+                // 设置样式
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.left = `${left}%`;
+                confetti.style.top = `-${size}px`;
+                confetti.style.transform = `rotate(${rotation}deg)`;
+                confetti.style.animation = `confetti-fall ${duration}s linear forwards ${delay}s`;
+                
+                if (isEmoji) {
+                    confetti.textContent = shape;
+                    confetti.style.fontSize = `${size}px`;
+                    confetti.style.backgroundColor = 'transparent';
+                } else {
+                    confetti.style.backgroundColor = color;
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                }
+                
+                // 添加到容器
+                confettiContainer.appendChild(confetti);
+            }
+            
+            // 添加礼花动画
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes confetti-fall {
+                    0% {
+                        transform: translateY(0) rotate(0deg) scale(1);
+                        opacity: 1;
+                    }
+                    50% {
+                        transform: translateY(50vh) rotate(180deg) scale(1.2);
+                        opacity: 0.8;
+                    }
+                    100% {
+                        transform: translateY(100vh) rotate(360deg) scale(0.5);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // 创建爱心飘浮效果
+        function createFloatingHearts() {
+            const heartContainer = document.createElement('div');
+            heartContainer.className = 'fixed inset-0 pointer-events-none z-20';
+            heartContainer.id = 'heart-container';
+            document.body.appendChild(heartContainer);
+            
+            setInterval(() => {
+                if (isPlaying) {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '💖';
+                    heart.className = 'absolute text-2xl animate-float';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = '100%';
+                    heart.style.animation = 'float-up 6s ease-out forwards';
+                    heartContainer.appendChild(heart);
+                    
+                    // 6秒后移除元素
+                    setTimeout(() => {
+                        if (heart.parentNode) {
+                            heart.parentNode.removeChild(heart);
+                        }
+                    }, 6000);
+                }
+            }, 2000);
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
+    
