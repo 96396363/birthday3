@@ -180,28 +180,122 @@
                 background-size: 400% 400%;
                 animation: gradient-shift 3s ease infinite;
             }
+            .particle {
+                position: absolute;
+                pointer-events: none;
+                border-radius: 50%;
+            }
+            .particle-1 {
+                width: 4px;
+                height: 4px;
+                background: radial-gradient(circle, #FF6B9D, transparent);
+                animation: particle-float 8s linear infinite;
+            }
+            .particle-2 {
+                width: 6px;
+                height: 6px;
+                background: radial-gradient(circle, #FFE066, transparent);
+                animation: particle-float 10s linear infinite;
+            }
+            .particle-3 {
+                width: 3px;
+                height: 3px;
+                background: radial-gradient(circle, #4ECDC4, transparent);
+                animation: particle-float 12s linear infinite;
+            }
+            @keyframes particle-float {
+                0% {
+                    transform: translateY(100vh) translateX(0) scale(0);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100px) translateX(100px) scale(1);
+                    opacity: 0;
+                }
+            }
+            .rainbow-text {
+                background: linear-gradient(45deg, #FF6B9D, #FFE066, #4ECDC4, #C7CEEA, #FFB3BA, #FFD700);
+                background-size: 400% 400%;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                animation: rainbow-shift 3s ease-in-out infinite;
+            }
+            @keyframes rainbow-shift {
+                0%, 100% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+            }
+            .morphing-shape {
+                border-radius: 50% 20% 80% 30%;
+                animation: morph 4s ease-in-out infinite;
+            }
+            @keyframes morph {
+                0%, 100% { border-radius: 50% 20% 80% 30%; }
+                25% { border-radius: 30% 60% 20% 70%; }
+                50% { border-radius: 80% 30% 50% 20%; }
+                75% { border-radius: 20% 80% 30% 60%; }
+            }
+            .neon-glow {
+                box-shadow: 
+                    0 0 5px currentColor,
+                    0 0 10px currentColor,
+                    0 0 15px currentColor,
+                    0 0 20px currentColor;
+            }
+            .floating-emoji {
+                position: absolute;
+                font-size: 2rem;
+                animation: emoji-float 6s ease-in-out infinite;
+            }
+            @keyframes emoji-float {
+                0%, 100% {
+                    transform: translateY(0) rotate(0deg) scale(1);
+                    opacity: 0.7;
+                }
+                50% {
+                    transform: translateY(-30px) rotate(180deg) scale(1.2);
+                    opacity: 1;
+                }
+            }
         }
     </style>
 </head>
 <body class="gradient-bg overflow-hidden">
     <!-- 动态背景装饰元素 -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <!-- 主要装饰球 -->
-        <div class="absolute top-10 left-5 w-20 h-28 bg-gradient-to-br from-primary/40 to-warm/30 rounded-full animate-float sparkle-effect" style="animation-delay: 0s;"></div>
-        <div class="absolute top-40 right-10 w-16 h-24 bg-gradient-to-br from-secondary/40 to-gold/30 rounded-full animate-float sparkle-effect" style="animation-delay: 0.5s;"></div>
-        <div class="absolute bottom-20 left-10 w-18 h-26 bg-gradient-to-br from-accent/40 to-mint/30 rounded-full animate-float sparkle-effect" style="animation-delay: 1s;"></div>
-        <div class="absolute bottom-40 right-5 w-14 h-20 bg-gradient-to-br from-pink/40 to-purple/30 rounded-full animate-float sparkle-effect" style="animation-delay: 1.5s;"></div>
+        <!-- 主要装饰球 - 使用变形形状 -->
+        <div class="absolute top-10 left-5 w-20 h-28 bg-gradient-to-br from-primary/40 to-warm/30 morphing-shape animate-float sparkle-effect" style="animation-delay: 0s;"></div>
+        <div class="absolute top-40 right-10 w-16 h-24 bg-gradient-to-br from-secondary/40 to-gold/30 morphing-shape animate-float sparkle-effect" style="animation-delay: 0.5s;"></div>
+        <div class="absolute bottom-20 left-10 w-18 h-26 bg-gradient-to-br from-accent/40 to-mint/30 morphing-shape animate-float sparkle-effect" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-40 right-5 w-14 h-20 bg-gradient-to-br from-pink/40 to-purple/30 morphing-shape animate-float sparkle-effect" style="animation-delay: 1.5s;"></div>
         
-        <!-- 小装饰元素 -->
-        <div class="absolute top-20 right-20 w-8 h-8 bg-gold/50 rounded-full animate-twinkle" style="animation-delay: 2s;"></div>
-        <div class="absolute top-60 left-20 w-6 h-6 bg-accent/60 rounded-full animate-twinkle" style="animation-delay: 2.5s;"></div>
-        <div class="absolute bottom-60 right-20 w-10 h-10 bg-primary/50 rounded-full animate-twinkle" style="animation-delay: 3s;"></div>
+        <!-- 小装饰元素 - 添加霓虹效果 -->
+        <div class="absolute top-20 right-20 w-8 h-8 bg-gold/50 rounded-full animate-twinkle neon-glow" style="animation-delay: 2s; color: #FFD700;"></div>
+        <div class="absolute top-60 left-20 w-6 h-6 bg-accent/60 rounded-full animate-twinkle neon-glow" style="animation-delay: 2.5s; color: #4ECDC4;"></div>
+        <div class="absolute bottom-60 right-20 w-10 h-10 bg-primary/50 rounded-full animate-twinkle neon-glow" style="animation-delay: 3s; color: #FF6B9D;"></div>
         
         <!-- 浮动爱心 -->
         <div class="floating-hearts absolute top-1/4 left-1/4" style="animation-delay: 0s;"></div>
         <div class="floating-hearts absolute top-1/3 right-1/4" style="animation-delay: 1s;"></div>
         <div class="floating-hearts absolute bottom-1/3 left-1/3" style="animation-delay: 2s;"></div>
         <div class="floating-hearts absolute bottom-1/4 right-1/3" style="animation-delay: 3s;"></div>
+        
+        <!-- 浮动表情符号 -->
+        <div class="floating-emoji absolute top-1/6 left-1/6" style="animation-delay: 0s;">🎈</div>
+        <div class="floating-emoji absolute top-1/5 right-1/6" style="animation-delay: 1s;">🎁</div>
+        <div class="floating-emoji absolute bottom-1/5 left-1/5" style="animation-delay: 2s;">🎂</div>
+        <div class="floating-emoji absolute bottom-1/6 right-1/5" style="animation-delay: 3s;">🎊</div>
+        <div class="floating-emoji absolute top-1/2 left-1/12" style="animation-delay: 4s;">🌟</div>
+        <div class="floating-emoji absolute top-1/2 right-1/12" style="animation-delay: 5s;">💫</div>
+        
+        <!-- 粒子效果容器 -->
+        <div id="particle-container" class="absolute inset-0"></div>
     </div>
 
     <!-- 主容器 - 整个屏幕可点击 -->
@@ -226,7 +320,7 @@
             <div class="absolute -bottom-4 -right-2 text-gold text-xl animate-twinkle" style="animation-delay: 1.5s;">✨</div>
             
             <!-- 主标题 -->
-            <h1 class="text-[clamp(2.5rem,9vw,4rem)] font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-warm to-secondary text-center text-glow mb-2 animate-float">
+            <h1 class="text-[clamp(2.5rem,9vw,4rem)] font-black rainbow-text text-center text-glow mb-2 animate-float">
                 宗慧强生日快乐！
             </h1>
             
@@ -234,40 +328,58 @@
             <p class="text-[clamp(1rem,4vw,1.5rem)] font-semibold text-white/90 text-center animate-pulse-slow">
                 🎉 Happy Birthday! 🎉
             </p>
+            
+            <!-- 装饰性文字 -->
+            <div class="text-center mt-2">
+                <span class="text-lg md:text-xl text-gold/80 font-medium animate-twinkle" style="animation-delay: 0s;">✨</span>
+                <span class="text-sm md:text-base text-white/70 font-light mx-2">愿你的每一天都充满阳光与快乐</span>
+                <span class="text-lg md:text-xl text-gold/80 font-medium animate-twinkle" style="animation-delay: 0.5s;">✨</span>
+            </div>
         </div>
         
         <!-- 蛋糕图标容器 -->
         <div class="relative mb-8">
-            <!-- 装饰光环 -->
-            <div class="absolute inset-0 w-40 h-40 md:w-48 md:h-48 rounded-full border-4 border-gradient-to-r from-gold/30 to-primary/30 animate-pulse-slow"></div>
-            <div class="absolute inset-2 w-36 h-36 md:w-44 md:h-44 rounded-full border-2 border-gradient-to-r from-secondary/40 to-accent/40 animate-pulse-slow" style="animation-delay: 0.5s;"></div>
+            <!-- 装饰光环 - 多层效果 -->
+            <div class="absolute inset-0 w-40 h-40 md:w-48 md:h-48 rounded-full border-4 border-gradient-to-r from-gold/30 to-primary/30 animate-pulse-slow neon-glow" style="color: #FFD700;"></div>
+            <div class="absolute inset-2 w-36 h-36 md:w-44 md:h-44 rounded-full border-2 border-gradient-to-r from-secondary/40 to-accent/40 animate-pulse-slow neon-glow" style="animation-delay: 0.5s; color: #4ECDC4;"></div>
+            <div class="absolute inset-4 w-32 h-32 md:w-40 md:h-40 rounded-full border border-gradient-to-r from-pink/30 to-purple/30 animate-pulse-slow neon-glow" style="animation-delay: 1s; color: #FF6B9D;"></div>
             
             <!-- 蛋糕主体 -->
             <div class="w-32 h-32 md:w-40 md:h-40 relative animate-scale heart-beat">
                 <!-- 蛋糕底座 -->
-                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-28 h-20 md:w-36 md:h-24 bg-gradient-to-b from-secondary to-gold rounded-t-full shadow-lg"></div>
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-28 h-20 md:w-36 md:h-24 bg-gradient-to-b from-secondary to-gold rounded-t-full shadow-2xl"></div>
                 <!-- 蛋糕层 -->
-                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-16 md:w-32 md:h-20 bg-gradient-to-b from-pink to-primary rounded-t-full shadow-lg"></div>
+                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-16 md:w-32 md:h-20 bg-gradient-to-b from-pink to-primary rounded-t-full shadow-2xl"></div>
                 <!-- 顶部装饰 -->
-                <div class="absolute bottom-16 left-1/2 transform -translate-x-1/2 w-20 h-12 md:w-28 md:h-16 bg-gradient-to-b from-warm to-accent rounded-t-full shadow-lg"></div>
+                <div class="absolute bottom-16 left-1/2 transform -translate-x-1/2 w-20 h-12 md:w-28 md:h-16 bg-gradient-to-b from-warm to-accent rounded-t-full shadow-2xl"></div>
                 
                 <!-- 蜡烛 -->
                 <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-2 h-8 md:w-3 md:h-10 bg-gradient-to-b from-yellow-300 to-orange-400 rounded-full shadow-lg"></div>
                 <!-- 火焰 -->
-                <div class="absolute top-[-8px] left-1/2 transform -translate-x-1/2 w-4 h-4 md:w-5 md:h-5 bg-gradient-to-b from-yellow-200 to-orange-500 rounded-full shadow-lg shadow-orange-400/60 animate-wiggle"></div>
+                <div class="absolute top-[-8px] left-1/2 transform -translate-x-1/2 w-4 h-4 md:w-5 md:h-5 bg-gradient-to-b from-yellow-200 to-orange-500 rounded-full shadow-lg shadow-orange-400/60 animate-wiggle neon-glow" style="color: #FFA500;"></div>
                 
-                <!-- 装饰星星 -->
+                <!-- 装饰星星 - 增加更多 -->
                 <div class="absolute top-2 left-2 text-gold text-sm animate-twinkle">✨</div>
                 <div class="absolute top-4 right-2 text-gold text-xs animate-twinkle" style="animation-delay: 0.5s;">⭐</div>
                 <div class="absolute bottom-8 left-4 text-gold text-xs animate-twinkle" style="animation-delay: 1s;">💫</div>
                 <div class="absolute bottom-6 right-4 text-gold text-sm animate-twinkle" style="animation-delay: 1.5s;">✨</div>
+                <div class="absolute top-6 left-1/2 transform -translate-x-1/2 text-gold text-xs animate-twinkle" style="animation-delay: 2s;">🌟</div>
+                <div class="absolute bottom-12 right-1/2 transform translate-x-1/2 text-gold text-xs animate-twinkle" style="animation-delay: 2.5s;">⭐</div>
+                
+                <!-- 蛋糕上的装饰点 -->
+                <div class="absolute bottom-2 left-1/4 w-2 h-2 bg-white/60 rounded-full animate-twinkle" style="animation-delay: 0.3s;"></div>
+                <div class="absolute bottom-2 right-1/4 w-2 h-2 bg-white/60 rounded-full animate-twinkle" style="animation-delay: 0.7s;"></div>
+                <div class="absolute bottom-6 left-1/3 w-1.5 h-1.5 bg-white/60 rounded-full animate-twinkle" style="animation-delay: 1.2s;"></div>
+                <div class="absolute bottom-6 right-1/3 w-1.5 h-1.5 bg-white/60 rounded-full animate-twinkle" style="animation-delay: 1.8s;"></div>
             </div>
         </div>
         
         <!-- 提示文字容器 -->
         <div class="text-center mb-6">
-            <div class="glass-effect rounded-2xl p-4 mb-4">
-                <p id="tap-text" class="text-white/90 text-center text-[clamp(1.1rem,4.5vw,1.4rem)] font-medium">
+            <div class="glass-effect rounded-2xl p-4 mb-4 relative overflow-hidden">
+                <!-- 背景装饰 -->
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 animate-pulse-slow"></div>
+                <p id="tap-text" class="text-white/90 text-center text-[clamp(1.1rem,4.5vw,1.4rem)] font-medium relative z-10">
                     点击屏幕播放生日快乐歌 🎵
                 </p>
             </div>
@@ -278,6 +390,13 @@
                 <span class="animate-float" style="animation-delay: 0.2s;">🎶</span>
                 <span class="animate-float" style="animation-delay: 0.4s;">🎵</span>
                 <span class="animate-float" style="animation-delay: 0.6s;">🎶</span>
+            </div>
+            
+            <!-- 生日祝福语 -->
+            <div class="mt-4 text-center">
+                <p class="text-sm md:text-base text-white/70 font-light animate-pulse-slow">
+                    🎂 愿你的笑容如阳光般灿烂 🎂
+                </p>
             </div>
         </div>
         
@@ -332,25 +451,42 @@
         // 初始化函数
         function init() {
             // 为整个播放区域添加点击事件
-            playArea.addEventListener('click', togglePlay);
+            playArea.addEventListener('click', (e) => {
+                createRippleEffect(e);
+                togglePlay();
+            });
             
             // 为重播按钮添加点击事件
-            replayBtn.addEventListener('click', () => {
+            replayBtn.addEventListener('click', (e) => {
+                createRippleEffect(e);
                 audio.currentTime = 0;
                 if (!isPlaying) {
                     playAudio();
                 }
             });
             
-            // 初始化爱心飘浮效果
+            // 初始化各种效果
             createFloatingHearts();
+            createParticles();
+            addRippleAnimation();
             
             // 添加触摸反馈
             playArea.addEventListener('touchstart', (e) => {
                 playArea.style.transform = 'scale(0.98)';
+                createRippleEffect(e);
             });
             
             playArea.addEventListener('touchend', (e) => {
+                playArea.style.transform = 'scale(1)';
+            });
+            
+            // 添加鼠标悬停效果
+            playArea.addEventListener('mouseenter', () => {
+                playArea.style.transform = 'scale(1.02)';
+                playArea.style.transition = 'transform 0.3s ease';
+            });
+            
+            playArea.addEventListener('mouseleave', () => {
                 playArea.style.transform = 'scale(1)';
             });
         }
@@ -504,6 +640,76 @@
                     }, 6000);
                 }
             }, 2000);
+        }
+        
+        // 创建粒子效果
+        function createParticles() {
+            const particleContainer = document.getElementById('particle-container');
+            const particleTypes = ['particle-1', 'particle-2', 'particle-3'];
+            
+            setInterval(() => {
+                if (isPlaying) {
+                    for (let i = 0; i < 3; i++) {
+                        const particle = document.createElement('div');
+                        particle.className = `particle ${particleTypes[Math.floor(Math.random() * particleTypes.length)]}`;
+                        particle.style.left = Math.random() * 100 + '%';
+                        particle.style.animationDelay = Math.random() * 2 + 's';
+                        particleContainer.appendChild(particle);
+                        
+                        // 12秒后移除元素
+                        setTimeout(() => {
+                            if (particle.parentNode) {
+                                particle.parentNode.removeChild(particle);
+                            }
+                        }, 12000);
+                    }
+                }
+            }, 1000);
+        }
+        
+        // 创建点击波纹效果
+        function createRippleEffect(event) {
+            const ripple = document.createElement('div');
+            const rect = event.target.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}px;
+                top: ${y}px;
+                background: radial-gradient(circle, rgba(255, 107, 157, 0.3) 0%, transparent 70%);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+                z-index: 1000;
+            `;
+            
+            event.target.appendChild(ripple);
+            
+            setTimeout(() => {
+                if (ripple.parentNode) {
+                    ripple.parentNode.removeChild(ripple);
+                }
+            }, 600);
+        }
+        
+        // 添加波纹动画CSS
+        function addRippleAnimation() {
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
         }
         
         // 页面加载完成后初始化
